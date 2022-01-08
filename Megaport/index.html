@@ -18,32 +18,37 @@
    .sortorder.reverse:after {
       content: '\25bc';
    }
+
    .mainDiv {
       width: 100%;
    }
 </style>
 
 <body>
-   <div ng-controller="ctrl" class="mainDiv">
+   <div ng-controller="ctrl" class="mainDiv" style="float: none;">
 
       <div>
          <h1>Activity 1</h1>
          <div>
-            <div ng-repeat="type in columnTypes">
+            <div ng-repeat="type in columnTypes" style="float: left; margin:5px;">
                <span>{{type}} :</span>
                <input type="text" ng-model="newTableRow[type]">
             </div>
-            <button ng-click="addNewOrder()">Add New Order</button>
+            <div style="float:left; margin:5px;">
+               <button ng-click="addNewOrder()">Add New Order</button>
+            </div>
          </div>
-         <div>
+         <div style="float:none; clear:both;">
             <span>Filter: </span>
             <input type="text" name="filterInput" ng-model="filterRule">
             <br>
          </div>
-         <table>
+         <br>
+         <span>Click on the Header text to sort</span>
+         <table width="100%">
             <tr>
-               <th ng-repeat="type in columnTypes">
-                  <button ng-click="sortBy(type)">{{type}}</button>
+               <th ng-repeat="type in columnTypes" ng-click="sortBy(type)">
+                  <span>{{type}}</span>
                   <span class="sortorder" ng-show="propertyName === type" ng-class="{reverse: reverse}"></span>
                </th>
             </tr>
@@ -54,12 +59,12 @@
       </div>
 
       <br><br><br><br><br>
-   
+
       <div>
          <h1>Activity 2</h1>
          <div>
             <h2>Sample JSON from email</h2>
-            <span> {{activityTwoJsonString}}</span> 
+            <span> {{activityTwoJsonString}}</span>
             <br><br>
             <span> Input Path: </span>
             <input type="text" name="pathInput" ng-model="pathInput">

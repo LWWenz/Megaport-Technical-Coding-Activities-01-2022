@@ -344,6 +344,9 @@ app.controller("ctrl", function ($scope, $http) {
     }
 
     $scope.addNewOrder = () => {
+        if(!$scope.newTableRow.id || !$scope.newTableRow.type|| !$scope.newTableRow.name || !$scope.newTableRow.topping) {
+            return;
+        }
         $scope.newTableRow.id = parseInt($scope.newTableRow.id);
         $scope.tableOne.push($scope.newTableRow);
         resetNewArea();
