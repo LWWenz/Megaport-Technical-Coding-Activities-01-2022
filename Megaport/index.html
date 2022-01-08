@@ -1,0 +1,35 @@
+<html ng-app="app" ng-init="init">
+
+<head>
+   <title>:)</title>
+</head>
+<style>
+   table,
+   th,
+   td {
+      border: 1px solid black;
+   }
+</style>
+
+<body>
+   <div ng-controller="ctrl">
+
+      <h1>Activity 1</h1>
+      <table>
+         <tr>
+            <th ng-repeat="type in columnTypes"> {{type}}</th>
+         </tr>
+         <tr ng-repeat="entry in tableInit">
+            <td ng-repeat="(key, value) in entry">{{value}}</td>
+         </tr>
+      </table>
+   </div>
+
+
+   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js">
+   </script>
+   <script src="javascript/index.js"></script>
+
+</body>
+
+</html>
