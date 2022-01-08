@@ -3,24 +3,51 @@
 <head>
    <title>:)</title>
 </head>
+
 <style>
    table,
    th,
    td {
       border: 1px solid black;
    }
+
+   .sortorder:after {
+      content: '\25b2';
+   }
+
+   .sortorder.reverse:after {
+      content: '\25bc';
+   }
+   .mainDiv {
+      width: 100%;
+   }
 </style>
 
 <body>
-   <div ng-controller="ctrl">
+   <div ng-controller="ctrl" class="mainDiv">
 
       <h1>Activity 1</h1>
+      <div>
+         <div ng-repeat="type in columnTypes">
+            <span>{{type}} :</span>
+            <input type="text" ng-model="newTableRow[type]">
+         </div>
+         <button ng-click="addNewOrder()">Add New Order</button>
+      </div>
+      <div>
+         <span>Filter: </span>
+         <input type="text" name="filterInput" ng-model="filterRule">
+         <br>
+      </div>
       <table>
          <tr>
-            <th ng-repeat="type in columnTypes"> {{type}}</th>
+            <th ng-repeat="type in columnTypes">
+               <button ng-click="sortBy(type)">{{type}}</button>
+               <span class="sortorder" ng-show="propertyName === type" ng-class="{reverse: reverse}"></span>
+            </th>
          </tr>
-         <tr ng-repeat="entry in tableInit">
-            <td ng-repeat="(key, value) in entry">{{value}}</td>
+         <tr ng-repeat="entry in tableOne | orderBy:propertyName:reverse | filter:filterRule:strict">
+            <td ng-repeat="key in columnTypes">{{entry[key]}}</td>
          </tr>
       </table>
    </div>

@@ -1,7 +1,7 @@
 var app = angular.module('app', []);
 
 app.controller("ctrl", function ($scope) {
-    $scope.tableInit = [
+    $scope.tableOne = [
         {
             "id": 0001,
             "type": "donut",
@@ -292,18 +292,47 @@ app.controller("ctrl", function ($scope) {
         },
     ];
 
+    
+    $scope.propertyName = 'id';
+    $scope.reverse = false;
+    $scope.strict = false;
+
+    //Used to debug
     window._scope = $scope;
+
     $scope.init = () => {
         console.log("Initializing...");
         $scope.columnTypes = [];
-        for(var ele of $scope.tableInit) {
+        for(var ele of $scope.tableOne) {
             for(var type in ele) {
                 if(!$scope.columnTypes.includes(type)) {
                     $scope.columnTypes.push(type);
                 }
             }
         }
-    }
-    $scope.init();
 
+        resetNewArea();
+    }
+
+    resetNewArea = () => {
+        $scope.newTableRow = {
+            "id":"",
+            "type":"",
+            "name":"",
+            "topping":"",
+        }
+    }
+
+    $scope.addNewOrder = () => {
+        $scope.newTableRow.id = parseInt($scope.newTableRow.id);
+        $scope.tableOne.push($scope.newTableRow);
+        resetNewArea();
+    }
+
+    $scope.sortBy = (propertyN) => {
+        $scope.reverse = ($scope.propertyName === propertyN) ? !$scope.reverse : false;
+        $scope.propertyName = propertyN;
+    }
+
+    $scope.init();
 })
