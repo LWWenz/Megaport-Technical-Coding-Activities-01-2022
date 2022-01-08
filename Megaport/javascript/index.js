@@ -292,10 +292,30 @@ app.controller("ctrl", function ($scope) {
         },
     ];
 
-    
+    $scope.activityTwoJson = {
+        name: 'Megaport',
+        address: {
+            office: {
+                unit: 'Level 3',
+                street: '825 Ann Street',
+                suburb: 'Fortitude Valley',
+                city: 'Brisbane',
+                state: 'Queensland',
+                postcode: 4006,
+            },
+        },
+        industry: {
+            type: 'Internet and telecommunications',
+            asxListed: true,
+        },
+    }
+    $scope.activityTwoJsonString = JSON.stringify($scope.activityTwoJson);
+
+
     $scope.propertyName = 'id';
     $scope.reverse = false;
     $scope.strict = false;
+    $scope.activityTwoOutput = "";
 
     //Used to debug
     window._scope = $scope;
@@ -303,9 +323,9 @@ app.controller("ctrl", function ($scope) {
     $scope.init = () => {
         console.log("Initializing...");
         $scope.columnTypes = [];
-        for(var ele of $scope.tableOne) {
-            for(var type in ele) {
-                if(!$scope.columnTypes.includes(type)) {
+        for (var ele of $scope.tableOne) {
+            for (var type in ele) {
+                if (!$scope.columnTypes.includes(type)) {
                     $scope.columnTypes.push(type);
                 }
             }
@@ -316,10 +336,10 @@ app.controller("ctrl", function ($scope) {
 
     resetNewArea = () => {
         $scope.newTableRow = {
-            "id":"",
-            "type":"",
-            "name":"",
-            "topping":"",
+            "id": "",
+            "type": "",
+            "name": "",
+            "topping": "",
         }
     }
 
@@ -332,6 +352,25 @@ app.controller("ctrl", function ($scope) {
     $scope.sortBy = (propertyN) => {
         $scope.reverse = ($scope.propertyName === propertyN) ? !$scope.reverse : false;
         $scope.propertyName = propertyN;
+    }
+
+    $scope.getValueFromPath = (params, obj) => {
+        $scope.activityTwoOutput = JSON.stringify(getValue(params, obj));
+    }
+
+    //Activity 2
+    const getValue = (params, obj) => {
+        var splitParam = params.split('.');
+        var value = obj;
+        for(param of splitParam) {
+            if(value[param] === undefined) {
+                value = "undefined";
+                break;
+            }else {
+                value = value[param];
+            }
+        }
+        return value;
     }
 
     $scope.init();

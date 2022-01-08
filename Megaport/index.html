@@ -26,31 +26,50 @@
 <body>
    <div ng-controller="ctrl" class="mainDiv">
 
-      <h1>Activity 1</h1>
       <div>
-         <div ng-repeat="type in columnTypes">
-            <span>{{type}} :</span>
-            <input type="text" ng-model="newTableRow[type]">
+         <h1>Activity 1</h1>
+         <div>
+            <div ng-repeat="type in columnTypes">
+               <span>{{type}} :</span>
+               <input type="text" ng-model="newTableRow[type]">
+            </div>
+            <button ng-click="addNewOrder()">Add New Order</button>
          </div>
-         <button ng-click="addNewOrder()">Add New Order</button>
+         <div>
+            <span>Filter: </span>
+            <input type="text" name="filterInput" ng-model="filterRule">
+            <br>
+         </div>
+         <table>
+            <tr>
+               <th ng-repeat="type in columnTypes">
+                  <button ng-click="sortBy(type)">{{type}}</button>
+                  <span class="sortorder" ng-show="propertyName === type" ng-class="{reverse: reverse}"></span>
+               </th>
+            </tr>
+            <tr ng-repeat="entry in tableOne | orderBy:propertyName:reverse | filter:filterRule:strict">
+               <td ng-repeat="key in columnTypes">{{entry[key]}}</td>
+            </tr>
+         </table>
       </div>
+
+      <br><br><br><br><br>
+   
       <div>
-         <span>Filter: </span>
-         <input type="text" name="filterInput" ng-model="filterRule">
-         <br>
+         <h1>Activity 2</h1>
+         <div>
+            <h2>Sample JSON from email</h2>
+            <span> {{activityTwoJsonString}}</span> 
+            <br><br>
+            <span> Input Path: </span>
+            <input type="text" name="pathInput" ng-model="pathInput">
+            <button ng-click="getValueFromPath(pathInput, activityTwoJson)">Get Value</button>
+            <br>
+            <span> Value: {{activityTwoOutput}}</span>
+         </div>
       </div>
-      <table>
-         <tr>
-            <th ng-repeat="type in columnTypes">
-               <button ng-click="sortBy(type)">{{type}}</button>
-               <span class="sortorder" ng-show="propertyName === type" ng-class="{reverse: reverse}"></span>
-            </th>
-         </tr>
-         <tr ng-repeat="entry in tableOne | orderBy:propertyName:reverse | filter:filterRule:strict">
-            <td ng-repeat="key in columnTypes">{{entry[key]}}</td>
-         </tr>
-      </table>
    </div>
+
 
 
    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js">
