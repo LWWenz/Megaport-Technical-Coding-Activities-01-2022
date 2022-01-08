@@ -24,13 +24,16 @@ Open /Megaport/index.html
 ## Activity 2
 (1) Added a html element to be able to change the paths and pressing "Get Value" button, the output will change depending on the path.
     It will show undefined if an incorrect path is used.
+    
 (2) The sample object given will be used if the obj is undefined.
+
 (3) Explanation to get to suburub, the path will be "address.office.suburb", and the path for asxListed is "industry.asxListed"
     Function is created in /Megaport/javascript/index.js 
 
 ## Activity 3
 (1) Write a reusable fetch function that GETs the list of Megaport enabled locations from the following endpoint: https://api.megaport.com/v2/locations
     Added a button at Activity 3 portion, pressing it, will do a GET request to the URL in the input (Default to https://api.megaport.com/v2/locations).
+    
 (2) The function should be asynchronous and return either the result or an error.
     The Status and Status Type labels will show the effect of asynchronous.
     When the button isnt pressed, both will show "Button not pressed", when pressed and the request is not back, both will show "Fetching API"
