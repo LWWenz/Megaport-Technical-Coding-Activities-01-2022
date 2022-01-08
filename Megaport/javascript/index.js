@@ -1,6 +1,6 @@
 var app = angular.module('app', []);
 
-app.controller("ctrl", function ($scope) {
+app.controller("ctrl", function ($scope, $http) {
     $scope.tableOne = [
         {
             "id": 0001,
@@ -359,6 +359,7 @@ app.controller("ctrl", function ($scope) {
     }
 
     //Activity 2
+    $scope.pathInput = 'address.office.state';
     const getValue = (params, obj) => {
         var splitParam = params.split('.');
         var value = obj;
@@ -371,6 +372,35 @@ app.controller("ctrl", function ($scope) {
             }
         }
         return value;
+    }
+
+    //Activity 3
+    $scope.activityThreeStatus = "Button not pressed";
+    $scope.activityThreeStatusType = "Button not pressed";
+    $scope.activityThreeUrl = "https://api.megaport.com/v2/locations";
+    $scope.getAPI = () => {
+        getAPI();
+    }
+
+    const getAPI = () => {
+        $scope.activityThreeStatus = "Fetching API";
+        $scope.activityThreeStatusType = "Fetching API";
+        $http.get($scope.activityThreeUrl).then((response) => {
+            console.log(response);
+            if(response !== undefined) {
+                $scope.activityThreeStatus = response.status;
+                var leftMostNumber = parseInt($scope.activityThreeStatus.toString()[0]);
+                if(leftMostNumber === 2) {
+                    $scope.activityThreeStatusType = "Successful responses";
+                } else if(leftMostNumber === 3) {
+                    $scope.activityThreeStatusType = "Redirection messages";
+                }else if(leftMostNumber === 4) {
+                    $scope.activityThreeStatusType = "Client error responses";
+                }else if(leftMostNumber === 5) {
+                    $scope.activityThreeStatusType = "Server error responses";
+                }
+            }
+        });
     }
 
     $scope.init();
