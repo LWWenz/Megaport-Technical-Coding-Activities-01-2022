@@ -1,5 +1,8 @@
 # Megaport-Technical-Coding-Activities-01-2022
 
+## Building the application
+If you have downloaded it as a ZIP file, unzip it and it will ready to run.
+
 ## Running the application
 Open /Megaport/index.html
 
